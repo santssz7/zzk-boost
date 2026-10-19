@@ -1,0 +1,83 @@
+<UserControl x:Class="FpsLatencyPanel.App.Views.CleanupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="36,32,36,40">
+        <StackPanel>
+
+            <StackPanel Margin="0,0,0,24">
+                <TextBlock Text="Limpeza" Style="{StaticResource H1}"/>
+                <TextBlock Text="Libera espaço em disco. Não aumenta FPS."
+                           FontSize="14" Foreground="{StaticResource TextDimBrush}" Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <Border Style="{StaticResource Card}" Padding="18"
+                    Background="#1EF5B740" BorderBrush="#66F5B740">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="⚠️" FontSize="18" VerticalAlignment="Top" Margin="0,1,12,0"/>
+                    <TextBlock Foreground="{StaticResource WarnBrush}" TextWrapping="Wrap"
+                               FontSize="13" FontWeight="SemiBold"
+                               Text="Arquivos em uso são pulados (nada quebra). Limpeza é irreversível por natureza."/>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}" Padding="18"
+                    Background="{StaticResource AccentSoftBrush}"
+                    BorderBrush="{StaticResource AccentBrush}"
+                    Visibility="{Binding LastResult, Converter={StaticResource StringNotEmptyToVis}}">
+                <StackPanel>
+                    <TextBlock Text="✓  Último resultado"
+                               FontSize="13" FontWeight="Bold"
+                               Foreground="{StaticResource AccentTextBrush}"
+                               Margin="0,0,0,6"/>
+                    <TextBlock Text="{Binding LastResult}"
+                               FontSize="13" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextBrush}"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+
+            <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource Card}" Padding="20" Margin="0,0,0,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Width="6" Height="40" CornerRadius="3"
+                                        VerticalAlignment="Top"
+                                        Background="{Binding State, Converter={StaticResource StateBrush}}"/>
+
+                                <StackPanel Grid.Column="1" Margin="16,0,16,0">
+                                    <TextBlock Text="{Binding Tweak.Name}"
+                                               FontSize="15" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding Tweak.Description}"
+                                               FontSize="12"
+                                               Foreground="{StaticResource TextDimBrush}"
+                                               TextWrapping="Wrap" LineHeight="18"
+                                               Margin="0,6,0,12"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Style="{StaticResource Badge}"
+                                                Background="{Binding State, Converter={StaticResource StateBrush}}">
+                                            <TextBlock Text="{Binding StateText}" Style="{StaticResource BadgeText}"/>
+                                        </Border>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <Button Grid.Column="2" Content="Limpar"
+                                        Style="{StaticResource PrimaryButton}"
+                                        VerticalAlignment="Center"
+                                        Command="{Binding DataContext.ApplyItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

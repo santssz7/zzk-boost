@@ -1,0 +1,22 @@
+<Application x:Class="FpsLatencyPanel.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:FpsLatencyPanel.App.Converters"
+             ShutdownMode="OnLastWindowClose">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/DarkTheme.xaml"/>
+                <ResourceDictionary Source="Views/ViewModelMappings.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+            <converters:BytesToReadableConverter x:Key="BytesConverter"/>
+            <converters:TweakStateToBrushConverter x:Key="StateBrush"/>
+            <converters:ImpactToTextConverter x:Key="ImpactText"/>
+            <converters:RiskToTextConverter x:Key="RiskText"/>
+            <converters:StringNotEmptyToVisConverter x:Key="StringNotEmptyToVis"/>
+            <converters:BoolToEnabledTextConverter x:Key="BoolToEnabledText"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

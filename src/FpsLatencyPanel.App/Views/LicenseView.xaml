@@ -1,0 +1,74 @@
+<UserControl x:Class="FpsLatencyPanel.App.Views.LicenseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="36,32,36,40">
+        <StackPanel>
+
+            <StackPanel Margin="0,0,0,24">
+                <TextBlock Text="Licença" Style="{StaticResource H1}"/>
+                <TextBlock Text="Status da sua licença e Machine ID."
+                           FontSize="14" Foreground="{StaticResource TextDimBrush}" Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <Border Style="{StaticResource Card}" Padding="22">
+                <StackPanel>
+                    <TextBlock Text="🔑  Status" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                        <Border Style="{StaticResource Badge}" Background="{Binding StatusBrush}" Padding="14,6">
+                            <TextBlock Text="{Binding StatusText}" Style="{StaticResource BadgeText}" FontSize="13"/>
+                        </Border>
+                    </StackPanel>
+                    <TextBlock Text="{Binding StatusMessage}" FontSize="13"
+                               Foreground="{StaticResource TextDimBrush}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding CustomerName}" FontSize="14" FontWeight="SemiBold"
+                               Margin="0,12,0,0"/>
+                    <TextBlock Text="{Binding ExpiresText}" FontSize="12"
+                               Foreground="{StaticResource MutedBrush}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}" Padding="22">
+                <StackPanel>
+                    <TextBlock Text="💻  Machine ID deste computador"
+                               FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,0,0,14"
+                               Text="Envie este ID ao vendedor para receber sua licença."/>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="{StaticResource BgDeepBrush}" Padding="16,12"
+                                CornerRadius="8"
+                                BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                            <TextBlock Text="{Binding MachineId}"
+                                       FontFamily="{StaticResource MonoFont}" FontSize="15" FontWeight="SemiBold"
+                                       Foreground="{StaticResource AccentTextBrush}"/>
+                        </Border>
+                        <Button Content="⧉  Copiar" Margin="10,0,0,0"
+                                Style="{StaticResource GhostButton}"
+                                Command="{Binding CopyMachineIdCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}" Padding="22">
+                <StackPanel>
+                    <TextBlock Text="✨  Ativar nova licença"
+                               FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,0,0,14"
+                               Text="Cole a key recebida. Validação 100% offline — nada é enviado pela internet."/>
+                    <TextBox Text="{Binding KeyInput, UpdateSourceTrigger=PropertyChanged}"
+                             Height="90" AcceptsReturn="True" TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"
+                             FontFamily="{StaticResource MonoFont}" FontSize="12"
+                             VerticalContentAlignment="Top"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                        <Button Style="{StaticResource PrimaryButton}"
+                                Content="✓  Ativar" Command="{Binding ActivateCommand}"/>
+                        <Button Content="Desativar (trocar de PC)" Margin="10,0,0,0"
+                                Style="{StaticResource DangerButton}"
+                                Command="{Binding DeactivateCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
